@@ -794,29 +794,30 @@ section { padding-block: var(--section-y); }
   gap: 20px;
 }
 .step {
-  /* The panel hangs off the bottom of the photo: one third of it overlaps
-     the image, the remaining two thirds sit below it. */
-  --panel-h: 178px;
-  --overlap: calc(var(--panel-h) / 3);
-  position: relative;
-  height: 430px;
+  /* The panel hangs off the bottom of the photo and overlaps it by
+     --overlap. Its height follows its own copy rather than sitting in a
+     fixed box, so a longer step cannot spill past the rounded corners.
+     The grid stretches all three to the same height, and the panel takes
+     up the slack, so their bottom edges still line up. */
+  --photo-h: 290px;
+  --overlap: 58px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   isolation: isolate;
 }
 .step > img {
-  position: absolute;
-  top: 0; left: 0; right: 0;
   width: 100%;
-  height: calc(100% - var(--panel-h) + var(--overlap));
+  height: var(--photo-h);
+  flex: none;
   object-fit: cover;
   border-radius: var(--r-md);
-  z-index: 0;
 }
 .step-panel {
-  position: absolute;
-  left: 20px; right: 20px; bottom: 0;
+  position: relative;
   z-index: 1;
-  height: var(--panel-h);
-  margin: 0;
+  flex: 1 1 auto;
+  margin: calc(var(--overlap) * -1) 20px 0;
   padding: 24px 20px;
   border-radius: var(--r-sm);
   background: var(--wash);
@@ -1565,8 +1566,8 @@ section { padding-block: var(--section-y); }
 
 @media (max-width: 560px) {
   .feature-img { height: 220px; }
-  .step { --panel-h: 202px; height: 410px; }
-  .step-panel { left: 14px; right: 14px; padding: 20px 16px; }
+  .step { --photo-h: 230px; --overlap: 48px; }
+  .step-panel { margin-inline: 14px; padding: 20px 16px; }
   .service-row { flex-wrap: wrap; }
   .hero-thumb img { width: 160px; height: 112px; }
 }
