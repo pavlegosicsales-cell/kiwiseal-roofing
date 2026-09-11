@@ -1131,7 +1131,7 @@ section { padding-block: var(--section-y); }
 .footer-legal-row {
   display: flex;
   align-items: center;
-  gap: var(--gap);
+  gap: 20px var(--gap);
   flex-wrap: wrap;
 }
 .footer-legal-row > p { flex: 1 1 260px; color: var(--white-70); }
@@ -1140,14 +1140,21 @@ section { padding-block: var(--section-y); }
 .socials { display: flex; align-items: center; gap: 10px; margin-left: auto; }
 .social {
   display: grid; place-items: center;
-  width: 35px; height: 35px;
+  width: 40px; height: 40px;
   border-radius: var(--r-pill);
-  background: var(--deep-2);
+  border: 1px solid var(--hair-light);
+  background: rgba(255, 255, 255, .10);
   color: var(--white);
-  transition: background .35s var(--ease-out);
+  transition: background .35s var(--ease-out),
+              color .35s var(--ease-out),
+              border-color .35s var(--ease-out);
 }
-.social:hover { background: var(--accent); }
-.social svg { width: 20px; height: 20px; }
+.social:hover {
+  background: var(--flame);
+  border-color: var(--flame);
+  color: var(--ink);
+}
+.social svg { width: 21px; height: 21px; }
 
 /* ==========================================================================
    Page header (contact / privacy)
@@ -1494,7 +1501,7 @@ section { padding-block: var(--section-y); }
   .footer-cols { flex-direction: column; gap: 30px; width: 100%; }
   .footer-divider { display: none; }
   .footer-cta-row { flex-direction: column; align-items: flex-start; }
-  .socials { margin-left: 0; }
+  .socials { margin-left: 0; flex-basis: 100%; gap: 12px; }
   .page-head { padding: 150px 0 70px; }
   .wizard { padding: 22px; }
 }
@@ -1552,7 +1559,8 @@ section { padding-block: var(--section-y); }
   .footer-col li { min-height: 44px; }
   .footer-col a { display: inline-flex; align-items: center; min-height: 44px; }
   .footer-legal-row a { display: inline-flex; align-items: center; min-height: 44px; }
-  .social { width: 44px; height: 44px; }
+  .social { width: 46px; height: 46px; }
+  .social svg { width: 23px; height: 23px; }
 }
 
 @media (max-width: 560px) {
@@ -1619,6 +1627,7 @@ html.lenis body { height: auto; }
   .nav-link { padding-block: 10px; }
   .nav-wordmark { font-size: 19px; }
   .nav-logo img { height: 42px; width: 42px; }
+  .social { width: 46px; height: 46px; }
   .choice { min-height: 52px; padding: 14px; gap: 10px; }
   .choice-ico { width: 36px; height: 36px; }
   .choice-ico svg { width: 19px; height: 19px; }
@@ -1650,21 +1659,24 @@ a, button, .choice, .service-row, .faq-q {
 
 /* ==========================================================================
    Phone, gradient direction.
-   The 38 percent left to right wash only works on a wide screen. On a phone
-   it turns vertical: solid colour at the top falling away into the photo.
+   The wash keeps running left to right on a phone, the same as desktop, so
+   the hero reads as one piece at every width. The solid band is pulled back
+   from 38 to 22 percent and the fade is stretched, otherwise it would
+   swallow the whole photo at 375px. A heavier vertical wash sits underneath
+   it so the headline still clears the roof detail.
    ========================================================================== */
 @media (max-width: 900px) {
-  /* Hero: solid navy at the top, easing down into the photo. */
   .hero::after,
   .page-head::after {
     background:
-      linear-gradient(180deg,
+      linear-gradient(90deg,
         var(--deep) 0%,
-        var(--deep) 38%,
+        var(--deep) 22%,
         rgba(20, 35, 66, 0) 100%),
       linear-gradient(180deg,
-        rgba(20, 35, 66, .30) 0%,
-        rgba(20, 35, 66, .45) 100%);
+        rgba(20, 35, 66, .55) 0%,
+        rgba(20, 35, 66, .62) 55%,
+        rgba(20, 35, 66, .82) 100%);
   }
 
   /* The footer goes flat navy on a phone, no photo. */
